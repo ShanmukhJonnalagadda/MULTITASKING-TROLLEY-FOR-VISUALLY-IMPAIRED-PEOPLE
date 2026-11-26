@@ -10,11 +10,11 @@ modified shopping basket.
 
 ### Prototype Photograph
 
-![Original Trolley Prototype](images/prototype_front.jpeg)
+![Original Trolley Prototype](images/Prototype_front.jpeg)
 
 ### Prototype Walkthrough
 
-[Watch the Original Prototype Video](media/prototype_walkthrough.mp4)
+[Watch the Original Prototype Video](images/Prototype_walkthrough.mp4)
 
 The photograph and video document the physical assembly
 and integration of the original prototype. They are not
