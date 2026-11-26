@@ -1,1 +1,52 @@
+name: Assistive Trolley Firmware Verification
 
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  cpp-regression-tests:
+    name: C++ Regression Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Display compiler version
+        run: g++ --version
+
+      - name: Compile sensor logic tests
+        run: |
+          g++ -std=c++11 -Wall -Wextra -Werror \
+            tests/test_sensor_logic.cpp \
+            -o test_sensor_logic
+
+      - name: Run automated tests
+        run: ./test_sensor_logic
+
+  arduino-compilation:
+    name: Arduino Uno Firmware Compilation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Arduino CLI
+        uses: arduino/setup-arduino-cli@v2
+
+      - name: Install Arduino AVR core
+        run: |
+          arduino-cli core update-index
+          arduino-cli core install arduino:avr@1.8.8
+
+      - name: Install HX711 library
+        run: arduino-cli lib install HX711
+
+      - name: Compile Arduino firmware
+        run: |
+          arduino-cli compile \
+            --fqbn arduino:avr:uno \
+            firmware/assistive_trolley
